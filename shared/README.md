@@ -10,6 +10,10 @@ Monitoring Interceptors that report to the same Confluent Cloud Basic Cluster
 - payload data and metrics data hosted in the same cluster
 (-I'm using v 7.1.1 of the Confluent Platform)
 
+You will need your Confluent Cloud cluster BOOTSTRAP_URL and a CLUSTER API key/secret pair for that cluster
+attached to an account with sufficient privileges. For demo purposes you can use and API Key attached to 
+ a _global_ user account in stead of a _service account_. 
+
 
 ## Steps
 
