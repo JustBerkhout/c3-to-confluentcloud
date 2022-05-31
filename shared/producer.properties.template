@@ -1,0 +1,19 @@
+bootstrap.servers=[BOOTSTRAP_SERVER URL HERE]
+security.protocol=SASL_SSL
+sasl.jaas.config=org.apache.kafka.common.security.plain.PlainLoginModule   required \
+  username="[CLUSTER API KEY]" \
+  password="[CLUSTER API SECRET]";
+sasl.mechanism=PLAIN
+
+client.id=cc-metrics-demo-producer
+
+linger.ms=1000
+
+interceptor.classes=io.confluent.monitoring.clients.interceptor.MonitoringProducerInterceptor
+confluent.monitoring.interceptor.bootstrap.servers=[BOOTSTRAP_SERVER URL HERE]
+confluent.monitoring.interceptor.security.protocol=SASL_SSL
+confluent.monitoring.interceptor.sasl.mechanism=PLAIN
+confluent.monitoring.interceptor.sasl.jaas.config=org.apache.kafka.common.security.plain.PlainLoginModule required \
+  username="[CLUSTER API KEY]" \
+  password="[CLUSTER API SECRET]";
+confluent.monitoring.interceptor.ssl.endpoint.identification.algorithm=https
