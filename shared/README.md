@@ -8,6 +8,7 @@ Monitoring Interceptors that report to the same Confluent Cloud Basic Cluster
 ## Prereqs
 - running cluster in the cloud
 - payload data and metrics data hosted in the same cluster
+- access to a local install of Confluent Platform (https://docs.confluent.io/platform/current/installation/installing_cp/overview.html)
 (-I'm using v 7.1.1 of the Confluent Platform)
 
 You will need your Confluent Cloud cluster BOOTSTRAP_URL and a CLUSTER API key/secret pair for that cluster
@@ -50,6 +51,12 @@ topic "cc-metrics-demo" appears in the confluent cloud console of your metrics c
 
 ## produce data to payload cluster, report metrics to metrics cluster
 
+This `kafka-console-producer` uses basic Confluent Cloud targeting produce configurations. You can use the
+Confluent Cloud web console to obtain these for your cluster. Additional Monitoring configurations are added
+to enable the producer to report monitoring information to the cluster, for Control Center to consume.
+(see step 5 in https://docs.confluent.io/cloud/current/cp-component/c3-cloud-config.html, and generic
+Monitoring Interceptor docs here: https://docs.confluent.io/platform/current/control-center/installation/clients.html)
+
 Produce settings in producer.properties
 ```
 bootstrap.servers=[BOOTSTRAP_SERVER URL HERE]
@@ -91,6 +98,12 @@ done | kafka-console-producer \
 ```
 
 ## Consumer side
+
+This `kafka-console-consumer` uses basic Confluent Cloud targeting consume configurations. You can use the
+Confluent Cloud web console to obtain these for your cluster. Additional Monitoring configurations are added
+to enable the consumer to report monitoring information to the cluster, for Control Center to consume.
+(see step 5 in https://docs.confluent.io/cloud/current/cp-component/c3-cloud-config.html, and generic
+Monitoring Interceptor docs here: https://docs.confluent.io/platform/current/control-center/installation/clients.html)
 
 ```
 bootstrap.servers=[BOOTSTRAP_SERVER URL HERE]
