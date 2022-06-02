@@ -33,11 +33,10 @@ confluent.controlcenter.data.dir=/tmp/control-center/data
 # confluent.controlcenter.ksql.ksqlDB.url=http://localhost:8088
 
 # Schema Registry cluster URL
-# confluent.controlcenter.schema.registry.url=http://localhost:8081
 # Confluent Schema Registry configuration for Confluent Control Center
-# confluent.controlcenter.schema.registry.basic.auth.credentials.source=USER_INFO
-# confluent.controlcenter.schema.registry.basic.auth.user.info=JER26LSIHYI6PSMN:Bo/u4ekFZ3JPCGm6t//suuBj8VCxYA0otbp19Hw3nQr0jnLBkUIbUMgsyA/1+Ku2
-# confluent.controlcenter.schema.registry.url=https://psrc-4r3n1.us-central1.gcp.confluent.cloud
+confluent.controlcenter.schema.registry.basic.auth.credentials.source=USER_INFO
+confluent.controlcenter.schema.registry.basic.auth.user.info=<SCHEMA_REGISTRY_API_KEY>:<SCHEMA_REGISTRY_API_SECRET>
+confluent.controlcenter.schema.registry.url=https://<SCHEMA_REGISTRY_ENDPOINT>
 
 
 # Kafka REST endpoint URL
