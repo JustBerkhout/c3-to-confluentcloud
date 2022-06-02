@@ -36,7 +36,7 @@ confluent.controlcenter.data.dir=/tmp/control-center/data
 # Confluent Schema Registry configuration for Confluent Control Center
 # confluent.controlcenter.schema.registry.basic.auth.credentials.source=USER_INFO
 # confluent.controlcenter.schema.registry.basic.auth.user.info=<SCHEMA_REGISTRY_API_KEY>:<SCHEMA_REGISTRY_API_SECRET>
-# confluent.controlcenter.schema.registry.url=https://<SCHEMA_REGISTRY_ENDPOINT>
+# confluent.controlcenter.schema.registry.url=https://<SCHEMA_REGISTRY_ENDPOINT>:443
 
 
 # Kafka REST endpoint URL
