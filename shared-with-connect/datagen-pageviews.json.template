@@ -1,0 +1,14 @@
+{
+  "name": "datagen-pageviews",
+  "config": {
+    "connector.class": "io.confluent.kafka.connect.datagen.DatagenConnector",
+    "tasks.max": "2",
+    "kafka.topic": "ldg-pageviews-topic",
+    "max.interval": "700",
+    "quickstart": "PAGEVIEWS",
+    "value.converter": "io.confluent.connect.avro.AvroConverter",
+    "value.converter.schema.registry.url": "https://<SCHEMA_REGISTRY_ENDPOINT>:443",
+    "value.converter.schema.registry.basic.auth.user.info": "<SCHEMA_REGISTRY_API_KEY>:<SCHEMA_REGISTRY_API_SECRET>",
+    "value.converter.basic.auth.credentials.source": "USER_INFO"
+  }
+}

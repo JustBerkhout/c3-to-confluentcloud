@@ -1,0 +1,78 @@
+bootstrap.servers=[BOOTSTRAP_SERVER URL HERE]
+
+group.id=connect-cluster
+
+key.converter=org.apache.kafka.connect.json.JsonConverter
+key.converter.schemas.enable=false
+value.converter.schemas.enable=true
+
+# Confluent Schema Registry for Kafka Connect
+value.converter=io.confluent.connect.avro.AvroConverter
+value.converter.basic.auth.credentials.source=USER_INFO
+value.converter.schema.registry.basic.auth.user.info=<SCHEMA_REGISTRY_API_KEY>:<SCHEMA_REGISTRY_API_SECRET>
+value.converter.schema.registry.url=https://<SCHEMA_REGISTRY_ENDPOINT>:443
+
+# internal.key.converter=org.apache.kafka.connect.json.JsonConverter
+# internal.value.converter=org.apache.kafka.connect.json.JsonConverter
+# internal.key.converter.schemas.enable=false
+# internal.value.converter.schemas.enable=false
+
+# Connect clusters create three topics to manage offsets, configs, and status
+# information. Note that these contribute towards the total partition limit quota.
+offset.storage.topic=connect-offsets
+offset.storage.replication.factor=3
+offset.storage.partitions=3
+
+config.storage.topic=connect-configs
+config.storage.replication.factor=3
+
+status.storage.topic=connect-status
+status.storage.replication.factor=3
+
+offset.flush.interval.ms=10000
+
+ssl.endpoint.identification.algorithm=https
+sasl.mechanism=PLAIN
+sasl.jaas.config=org.apache.kafka.common.security.plain.PlainLoginModule required \
+  username="[CLUSTER API KEY]" \
+  password="[CLUSTER API SECRET]";
+security.protocol=SASL_SSL
+
+consumer.ssl.endpoint.identification.algorithm=https
+consumer.sasl.mechanism=PLAIN
+consumer.sasl.jaas.config=org.apache.kafka.common.security.plain.PlainLoginModule required \
+  username="[CLUSTER API KEY]" \
+  password="[CLUSTER API SECRET]";
+consumer.security.protocol=SASL_SSL
+
+producer.ssl.endpoint.identification.algorithm=https
+producer.sasl.mechanism=PLAIN
+producer.sasl.jaas.config=org.apache.kafka.common.security.plain.PlainLoginModule required \
+  username="[CLUSTER API KEY]" \
+  password="[CLUSTER API SECRET]";
+producer.security.protocol=SASL_SSL
+
+# Set to a list of filesystem paths separated by commas (,) to enable class loading isolation for plugins
+# (connectors, converters, transformations).
+plugin.path=/home/justb/confluent-7.1.1/share/confluent-hub-components/
+
+
+# monitoring interceptors as per Confluent Docs
+# https://docs.confluent.io/platform/current/control-center/installation/clients.html#kconnect-long
+producer.interceptor.classes=io.confluent.monitoring.clients.interceptor.MonitoringProducerInterceptor
+producer.confluent.monitoring.interceptor.bootstrap.servers=pkc-ep9mm.us-east-2.aws.confluent.cloud:9092
+producer.confluent.monitoring.interceptor.security.protocol=SASL_SSL
+producer.confluent.monitoring.interceptor.sasl.mechanism=PLAIN
+producer.confluent.monitoring.interceptor.sasl.jaas.config=org.apache.kafka.common.security.plain.PlainLoginModule required \
+  username="[CLUSTER API KEY]" \
+  password="[CLUSTER API SECRET]";
+producer.confluent.monitoring.interceptor.ssl.endpoint.identification.algorithm=https
+
+consumer.interceptor.classes=io.confluent.monitoring.clients.interceptor.MonitoringConsumerInterceptor
+consumer.confluent.monitoring.interceptor.bootstrap.servers=pkc-ep9mm.us-east-2.aws.confluent.cloud:9092
+consumer.confluent.monitoring.interceptor.security.protocol=SASL_SSL
+consumer.confluent.monitoring.interceptor.sasl.mechanism=PLAIN
+consumer.confluent.monitoring.interceptor.sasl.jaas.config=org.apache.kafka.common.security.plain.PlainLoginModule required \
+  username="[CLUSTER API KEY]" \
+  password="[CLUSTER API SECRET]";
+consumer.confluent.monitoring.interceptor.ssl.endpoint.identification.algorithm=https
