@@ -78,58 +78,20 @@ curl -X POST -H "Content-Type: application/json" --data @datagen-pageviews.json 
 ```
 
 
-### start a sink system (postgres DB)
+### start a dummy sinkconnector
 
-use the `docker-compose.myl` to start a basic postgres instance running in a local docker .
-
-start `psql` connected to the local postgres instance
-
-```
-$ psql -h 127.0.0.1 --username postgres -d demo
-```
-
-verify no relations available
-
-```
-demo=# \dt
-# Did not find any relations.
-```
+Here we start a sink connector `FileSinkConnector` configured to sink data into a file. We target the Linux system
+file `/dev/null` (deletain all data) to keep the demo as simple as possible, so we don't have to ocnfigure a actual 
 
 
 ### start a pageview sink connector
 
-Use the `sink-pageviews.json.template` to configure a sink connector  sinking
-pageviews data from  the `ldg-pageviews-topic` into the local postgress instance. 
-Supply your schema-registry details.
+Use the `sink-pageviews-devnull.json.template` to configure a sink connector  sinking
+pageviews data from  the `ldg-pageviews-topic` into the local `/dev/null` file 
+
 
 ```
- curl -X POST -H "Content-Type: application/json" --data @sink-pageviews.json localhost:8083/connectors/ | jq
-```
-
-
-Verify that messages are flowing using the `psql` client, by checking the table now exists (it was auto-created)
-and the record count is increasing. 
-
-```
-demo=# \dt
-                List of relations
- Schema |        Name         | Type  |  Owner
---------+---------------------+-------+----------
- public | ldg-pageviews-topic | table | postgres
-(1 row)
-
-demo=# select count(*) from "ldg-pageviews-topic";
- count
---------
- 114936
-(1 row)
-
-demo=# select count(*) from "ldg-pageviews-topic";
- count
---------
- 115041
-(1 row)
-
+ curl -X POST -H "Content-Type: application/json" --data @sink-pageviews-devnull.json localhost:8083/connectors/ | jq
 ```
 
 Verify that the Monitoring interceptors are commuincating data to the Cloud cluster by navigating to 
@@ -144,15 +106,14 @@ the *Consumption* tab for the Consumer Group `connect-sink-pageviews` in the C3 
 
 ```
 curl -X DELETE http://localhost:8083/connectors/datagen-pageviews
-curl -X DELETE http://localhost:8083/connectors/sink-pageviews
-docker compose down -v
+curl -X DELETE http://localhost:8083/connectors/sink-pageviews-devnull
 control-center-stop control-center.properties
 ```
 
-On the terminal tab for your connect cluster, hit ctrl-c. or kill the correct porcess
+kill the connectt process
 
 
-control center wil have stored an amount of data in the configure `/tmp/` directory. 
+Control Center wil have stored an amount of data in the configure `/tmp/` directory. 
 If you wiish you can delete this data
 ```
 rm -rf /tmp/control-center/data/1
@@ -160,6 +121,3 @@ rm -rf /tmp/control-center/data/1
 ```
 
 Numerous topics will have been created in your CLoud Cluster. Internal topics for C3 and connect and a demo topic.
-
-
-remove 

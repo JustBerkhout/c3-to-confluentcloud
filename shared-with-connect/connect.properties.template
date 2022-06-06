@@ -54,7 +54,7 @@ producer.security.protocol=SASL_SSL
 
 # Set to a list of filesystem paths separated by commas (,) to enable class loading isolation for plugins
 # (connectors, converters, transformations).
-plugin.path=/home/justb/confluent-7.1.1/share/confluent-hub-components/
+plugin.path=/path/to/confluent-7.1.1/share/confluent-hub-components/,/path/to/confluent-7.1.1/share/filestream-connectors/
 
 
 # monitoring interceptors as per Confluent Docs

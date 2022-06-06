@@ -1,0 +1,9 @@
+{
+  "name": "sink-pageviews-devnull",
+  "config": {
+    "connector.class": "org.apache.kafka.connect.file.FileStreamSinkConnector",
+    "tasks.max": "1",
+    "topics": "ldg-pageviews-topic",
+    "file": "/dev/null"
+  }
+}
